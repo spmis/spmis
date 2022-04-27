@@ -1,3 +1,4 @@
+# Unicode characters list
 # Cuneiform, 楔形文字, الخط المسماري‎：𒐕cuneus（楔子）和 𒑠forma（形狀） 
 ## Javascript:
 `let s="";for(i=0;i<=0x4ff;i++)s+=String.fromCodePoint(0x12000+i);console.log(s);`
