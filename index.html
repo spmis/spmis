@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en" data-color-mode="auto" data-light-theme="light" data-dark-theme="dark" >
+<head>
+    <meta charset="utf-8">
+	<meta content="text/html; charset=UTF-8" http-equiv="content-type">	
+    <meta name="author" content="spmis">
+    <meta name="description" content="SPMIS UNIVERSE">	
+    <meta name="keywords" content="message,msg,訊息,信息,數據,資訊,資料,information,data">	
+	<meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=5.0, user-scalable=yes">
+	
+<script>
+function body_onload() {
+	String_fcp();
+}
+function String_fcp() {		
+	let fcp_number = eval(document.getElementById("fcp_number").value);
+	let fcp_start = eval(document.getElementById("fcp_start").value);
+	let s="";for(i=0;i<=fcp_number;i++)s+=String.fromCodePoint(fcp_start+i);console.log(s);
+	document.getElementById("content").innerHTML = s;
+}
+function String_fcp_adjust(sign) {
+	let fcp_start = eval(document.getElementById("fcp_start").value);
+	let fcp_number = eval(document.getElementById("fcp_number").value);
+	fcp_start += fcp_number * sign;
+	if (fcp_start < 0) fcp_start = 0;
+	if (fcp_start >= 0x110000) fcp_start = 0x110000 - fcp_number;
+	document.getElementById("fcp_start").value = "0x"+fcp_start.toString(16);
+}
+function String_fcp_dec() {
+	String_fcp_adjust(-1);
+	String_fcp();
+}
+function String_fcp_inc() {
+	String_fcp_adjust(1);
+	String_fcp();
+}
+</script>
+<style>
+.box {
+	width: 100%;
+	display: flex;
+	border: 1px solid blue;
+}
+.content {
+    word-break: break-word;
+}
+</style>
+</head>
+<body onload="body_onload()">
+	<input type="text" value="0x12000" id="fcp_start">
+	<input type="text" value="0x1000" id="fcp_number">
+	<input type="button" value="run" onclick="String_fcp()">
+	<input type="button" value="-" onclick="String_fcp_dec()">
+	<input type="button" value="+" onclick="String_fcp_inc()">
+	<div class="box">
+		<div id="content" class="content"></div>
+	</div>
+</body>
+<html>
