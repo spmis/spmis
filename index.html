@@ -15,7 +15,16 @@ function body_onload() {
 function String_fcp() {		
 	let fcp_number = eval(document.getElementById("fcp_number").value);
 	let fcp_start = eval(document.getElementById("fcp_start").value);
-	let s="";for(i=0;i<=fcp_number;i++)s+=String.fromCodePoint(fcp_start+i);console.log(s);
+	let chk_ve = document.getElementById("chk_vertical").checked;
+	let chk_fo = document.getElementById("chk_fontsize").checked;
+	let tag_1 = "span";	if (chk_ve) tag_1 = "div";
+	let s="";for(i=0;i<=fcp_number;i++) {
+		let lbl = "";
+		if (chk_ve) lbl = (fcp_start + i).toString(16) + "\t";
+		let cla = "cla1";
+		if (chk_fo) cla = "cla2";
+		s+= ("<" + tag_1 + " class='" + cla + "'>" + lbl + String.fromCodePoint(fcp_start+i) + "</" + tag_1 + ">");
+	}
 	document.getElementById("content").innerHTML = s;
 }
 function String_fcp_adjust(sign) {
@@ -36,6 +45,14 @@ function String_fcp_inc() {
 }
 </script>
 <style>
+.cla1 {
+	font-size: 1em;
+	font-family: Segoe UI Emoji;
+}
+.cla2 {
+	font-size: 2em;
+	font-family: Segoe UI Emoji;
+}
 .box {
 	width: 100%;
 	display: flex;
@@ -52,6 +69,8 @@ function String_fcp_inc() {
 	<input type="button" value="run" onclick="String_fcp()">
 	<input type="button" value="-" onclick="String_fcp_dec()">
 	<input type="button" value="+" onclick="String_fcp_inc()">
+	<input type="checkbox" value="1" id="chk_fontsize"><label for="chk_fontsize">font-size-biger</label>
+	<input type="checkbox" value="1" id="chk_vertical"><label for="chk_vertical">vertical</label>
 	<div class="box">
 		<div id="content" class="content"></div>
 	</div>
