@@ -1,15 +1,37 @@
 <!DOCTYPE html>
 <html lang="en" data-color-mode="auto" data-light-theme="light" data-dark-theme="dark" >
 <head>
-    <meta charset="utf-8">
+	<meta charset="utf-8">
 	<meta content="text/html; charset=UTF-8" http-equiv="content-type">	
-    <meta name="author" content="spmis">
-    <meta name="description" content="SPMIS UNIVERSE">	
-    <meta name="keywords" content="message,msg,訊息,信息,數據,資訊,資料,information,data">	
+	<meta name="author" content="spmis">
+	<meta name="description" content="SPMIS UNIVERSE">	
+	<meta name="keywords" content="message,msg,訊息,信息,數據,資訊,資料,information,data">	
 	<meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=5.0, user-scalable=yes">
 	
 <script>
+var getQueryString = function(pname) {
+	var strSearch = window.location.search;
+	var objURL = {};
+	strSearch.replace(
+		new RegExp( "([^?=&]+)(=([^&]*))?", "g" ),
+		function($0, $1, $2, $3){objURL[$1] = $3;}
+	);
+	return objURL[pname];
+};
+function init_search_param() {
+	var param_i = getQueryString("i");
+	if (typeof param_i != "undefined") {
+		document.getElementById("fcp_start").value = "0x" + param_i;
+	}
+	var param_n = getQueryString("n");
+	if (typeof param_n != "undefined") {
+		document.getElementById("fcp_number").value = "0x" + param_n;
+		document.getElementById("toolbar").style.display = "none";
+	}
+	
+}
 function body_onload() {
+	init_search_param();
 	String_fcp();
 }
 function String_fcp() {		
@@ -18,7 +40,7 @@ function String_fcp() {
 	let chk_ve = document.getElementById("chk_vertical").checked;
 	let chk_fo = document.getElementById("chk_fontsize").checked;
 	let tag_1 = "span";	if (chk_ve) tag_1 = "div";
-	let s="";for(i=0;i<=fcp_number;i++) {
+	let s="";for(i=0;i<fcp_number;i++) {
 		let lbl = "";
 		if (chk_ve) lbl = (fcp_start + i).toString(16) + "\t";
 		let cla = "cla1";
@@ -64,13 +86,15 @@ function String_fcp_inc() {
 </style>
 </head>
 <body onload="body_onload()">
-	<input type="text" value="0x12000" id="fcp_start">
-	<input type="text" value="0x1000" id="fcp_number">
-	<input type="button" value="run" onclick="String_fcp()">
-	<input type="button" value="-" onclick="String_fcp_dec()">
-	<input type="button" value="+" onclick="String_fcp_inc()">
-	<input type="checkbox" value="1" id="chk_fontsize"><label for="chk_fontsize">font-size-biger</label>
-	<input type="checkbox" value="1" id="chk_vertical"><label for="chk_vertical">vertical</label>
+	<div id="toolbar">
+		<input type="text" value="0x12000" id="fcp_start">
+		<input type="text" value="0x1000" id="fcp_number">
+		<input type="button" value="run" onclick="String_fcp()">
+		<input type="button" value="-" onclick="String_fcp_dec()">
+		<input type="button" value="+" onclick="String_fcp_inc()">
+		<input type="checkbox" value="1" id="chk_fontsize"><label for="chk_fontsize">font-size-biger</label>
+		<input type="checkbox" value="1" id="chk_vertical"><label for="chk_vertical">vertical</label>
+	</div>
 	<div class="box">
 		<div id="content" class="content"></div>
 	</div>
