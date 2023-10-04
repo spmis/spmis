@@ -6,7 +6,8 @@
 	<meta name="author" content="spmis">
 	<meta name="description" content="SPMIS UNIVERSE">	
 	<meta name="keywords" content="message,msg,訊息,信息,數據,資訊,資料,information,data">	
-	<meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=5.0, user-scalable=yes">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 	
 <script>
 var getQueryString = function(pname) {
@@ -83,10 +84,30 @@ function String_fcp_inc() {
 .content {
     word-break: break-word;
 }
+:root {
+		--font-size: 1em;
+}
+body {
+	font-size: var(--font-size);
+}
+.cla_toolbar {
+	font-size: 1em;
+}
+@media screen and (max-width: 1200px) {
+}
+
+@media screen and (max-width: 992px) {
+}
+
+@media screen and (max-width: 768px) {
+	.content {
+		font-size: 10em;
+	}
+}	
 </style>
 </head>
 <body onload="body_onload()">
-	<div id="toolbar">
+	<div id="toolbar" class="cla_toolbar">
 		<input type="text" value="0x12000" id="fcp_start">
 		<input type="text" value="0x1000" id="fcp_number">
 		<input type="button" value="run" onclick="String_fcp()">
